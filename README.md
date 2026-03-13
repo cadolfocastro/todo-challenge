@@ -2,9 +2,23 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.17.
 
-## Development server
+## Getting started
 
-To start a local development server, run:
+After cloning the repo, run the setup script **once**:
+
+```bash
+npm run setup
+```
+
+This will:
+- Copy `src/environments/environment.example.ts` → `src/environments/environment.ts`
+- Install the pre-commit hook that blocks commits containing API keys or private keys
+
+Then open `src/environments/environment.ts` and fill in your Firebase Web API Key
+(Firebase Console → Project Settings → General → Your apps → Web API Key).
+
+> **Never commit `environment.ts` with real credentials.** It is git-ignored on purpose.
+
 
 ```bash
 ng serve
