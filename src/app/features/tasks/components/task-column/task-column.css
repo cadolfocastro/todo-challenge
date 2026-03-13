@@ -113,7 +113,6 @@
 /* Responsive */
 @media (max-width: 768px) {
   .column {
-    width: 100%;
     min-height: 400px;
   }
 }
