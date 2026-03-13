@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Editar tarea</h2>
+
+<mat-dialog-content>
+
+<label>Título</label>
+<input [(ngModel)]="task.title">
+
+<label>Descripción</label>
+<textarea [(ngModel)]="task.description"></textarea>
+
+<label>Prioridad</label>
+<select [(ngModel)]="task.priority">
+  <option value="low">Low</option>
+  <option value="medium">Medium</option>
+  <option value="high">High</option>
+</select>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+<button mat-button mat-dialog-close>
+Cancelar
+</button>
+
+<button mat-raised-button color="primary" (click)="save()">
+Guardar
+</button>
+
+</mat-dialog-actions>

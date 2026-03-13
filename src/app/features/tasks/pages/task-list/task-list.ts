@@ -57,6 +57,25 @@ export class TaskList {
     this.taskService.deleteTask(task,list)
 
   }
+  updateTask(updatedTask: Task){
+
+  const lists = [
+    this.taskService.todo,
+    this.taskService.inProgress,
+    this.taskService.done
+  ]
+
+  lists.forEach(list => {
+
+    const index = list.findIndex(t => t.id === updatedTask.id)
+
+    if(index !== -1){
+      list[index] = updatedTask
+    }
+
+  })
+
+}
 
 
 }

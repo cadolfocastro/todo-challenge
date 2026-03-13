@@ -18,4 +18,5 @@ export class TaskColumn {
   @Input() connectedTo: string[] = []
   @Input() dropFn: Function = () => {}
   @Input() deleteFn: Function = () => {}
+  @Input() updateFn!: (task: Task) => void
 }

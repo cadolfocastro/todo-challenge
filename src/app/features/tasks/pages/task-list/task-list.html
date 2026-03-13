@@ -1,7 +1,7 @@
 <div class="board">
   <app-task-column listId="todoList" title="To Do" [tasks]="taskService.todo"
                    [connectedTo]="['inProgressList','doneList']"
-                   [dropFn]="drop.bind(this)" [deleteFn]="deleteTask.bind(this)">
+                   [dropFn]="drop.bind(this)" [deleteFn]="deleteTask.bind(this)" [updateFn]="updateTask.bind(this)">
   </app-task-column>
 
   <app-task-column listId="inProgressList" title="In Progress" [tasks]="taskService.inProgress"
