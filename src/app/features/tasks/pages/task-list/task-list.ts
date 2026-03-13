@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { CommonModule } from '@angular/common'
+
 import { FormsModule } from '@angular/forms'
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
 import { Task } from '../../models/task'
@@ -12,11 +12,10 @@ import { TaskColumn } from '../../components/task-column/task-column'
  selector:'app-task-list',
  standalone: true,
  imports: [
-    CommonModule,
     DragDropModule,
     FormsModule,
     TaskForm,
-    TaskColumn,
+    TaskColumn
 ],
 
  templateUrl:'./task-list.html',

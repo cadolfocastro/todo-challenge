@@ -1,7 +1,9 @@
-<div class="task" *ngIf="task">
-  <button class="delete-btn" (click)="deleteTask()">X</button>
-  <h3>{{ task.title }}</h3>
-  <p>{{ task.description }}</p>
-  <p>Prioridad: {{ task.priority }}</p>
-  <small> Creada: {{ task.createdAt | date: 'short' }} </small>
-</div>
+@if (task) {
+  <div class="task">
+    <button class="delete-btn" (click)="deleteTask()">X</button>
+    <h3>{{ task.title }}</h3>
+    <p>{{ task.description }}</p>
+    <p>Prioridad: {{ task.priority }}</p>
+    <small> Creada: {{ task.createdAt | date: 'short' }} </small>
+  </div>
+}
