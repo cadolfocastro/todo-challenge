@@ -1,58 +1,94 @@
-/* COLUMNAS */
-
-.column{
-  min-height:500px;
-  background:rgba(255,255,255,0.9);
-  padding:15px;
-  border-radius:12px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  box-shadow:0 3px 10px rgba(0,0,0,0.08);
+/* COLUMNAS - Estilo profesional tipo Jira */
+.column {
+  min-height: 600px;
+  width: 320px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.column:hover{
-  transform: translateY(-3px);
-  box-shadow:0 10px 20px rgba(0,0,0,0.12);
+.column:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  border-color: #d1d5db;
 }
 
-/* HEADER COLUMN */
-
-.column h2{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:18px;
-  font-weight:600;
-  color:#1f2937;
+/* HEADER COLUMN - Encabezado atractivo */
+.column h2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e5e7eb;
 }
 
-/* CONTADOR DE TAREAS */
-
-.task-count{
-  background:#1976d2;
-  color:white;
-  padding:4px 10px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:600;
+/* CONTADOR DE TAREAS - Badge moderno */
+.task-count {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 24px;
+  text-align: center;
 }
 
-/* DRAG & DROP */
-
-.cdk-drag-preview{
-  box-shadow:0 5px 15px rgba(0,0,0,0.3);
-  border-radius:8px;
+/* EMPTY STATE */
+.emptyList {
+  text-align: center;
+  color: #9ca3af;
+  font-style: italic;
+  padding: 40px 20px;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  margin-top: 20px;
 }
 
-.cdk-drag-placeholder{
-  opacity:0;
+/* DRAG & DROP - Animaciones suaves */
+.cdk-drag-preview {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  transform: rotate(2deg);
+  opacity: 0.95;
 }
 
-.cdk-drag-animating{
-  transition:transform 250ms cubic-bezier(0,0,0.2,1);
+.cdk-drag-placeholder {
+  opacity: 0.4;
+  background: #f3f4f6;
+  border: 2px dashed #9ca3af;
+  border-radius: 12px;
 }
 
-.column.cdk-drop-list-dragging .task:not(.cdk-drag-placeholder){
-  transition:transform 250ms cubic-bezier(0,0,0.2,1);
+.cdk-drag-animating {
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.column.cdk-drop-list-dragging .task:not(.cdk-drag-placeholder) {
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* DRAG OVER STATE */
+.cdk-drop-list-dragging {
+  background: #f0f9ff;
+  border-color: #3b82f6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .column {
+    width: 100%;
+    min-height: 400px;
+  }
 }

@@ -1,11 +1,11 @@
 @if (task) {
   <div class="task">
-    <button class="delete-btn" (click)="deleteTask()">X</button>
-    <h3 (click) = 'openEditModal()' class = 'task-title'>
+    <button class="delete-btn" (click)="deleteTask()">×</button>
+    <h3 (click)='openEditModal()' class='task-title'>
       {{ task.title }}
     </h3>
-    <p>{{ task.description }}</p>
-    <p>Prioridad: {{ task.priority }}</p>
-    <small> Creada: {{ task.createdAt | date: 'short' }} </small>
+    <p class="description">{{ task.description }}</p>
+    <p class="priority priority-{{ task.priority.toLowerCase() }}">{{ task.priority }}</p>
+    <small class="date">Creada: {{ task.createdAt | date: 'short' }}</small>
   </div>
 }
