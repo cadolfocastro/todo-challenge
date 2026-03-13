@@ -44,10 +44,11 @@ export class TaskList {
     if (!container) return;
     const rect = container.getBoundingClientRect();
     const threshold = 50;
+    const scrollSpeed = 30;
     if (event.clientX < rect.left + threshold && container.scrollLeft > 0) {
-      container.scrollLeft -= 10;
+      container.scrollLeft -= scrollSpeed;
     } else if (event.clientX > rect.right - threshold && container.scrollLeft < container.scrollWidth - container.clientWidth) {
-      container.scrollLeft += 10;
+      container.scrollLeft += scrollSpeed;
     }
   }
 
