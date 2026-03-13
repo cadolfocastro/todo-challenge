@@ -26,7 +26,7 @@
   }
 
   @for (task of tasks(); track task.id) {
-    <div cdkDrag>
+    <div cdkDrag (cdkDragStarted)="onDragStart()()" (cdkDragEnded)="onDragEnd()()">
       <app-task-card [task]="task" (delete)="deleteFn()(task, tasks())" (update)="updateFn()(task)">
       </app-task-card>
     </div>

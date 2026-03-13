@@ -9,6 +9,37 @@
   overflow-x: auto;
 }
 
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .board {
+    justify-content: flex-start;
+    padding: 15px;
+    gap: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #667eea #f1f1f1;
+  }
+
+  .board::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .board::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  .board::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 4px;
+  }
+
+  .board::-webkit-scrollbar-thumb:hover {
+    background: #5a6fd8;
+  }
+}
+
 .create-task-container {
   display: flex;
   justify-content: center;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   CdkDragDrop,
@@ -11,11 +11,12 @@ import { TaskService } from '../../services/task.service';
 import { TaskColumn } from '../../components/task-column/task-column';
 import { TaskModal } from '../../components/task-modal/task-modal';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [DragDropModule, FormsModule, TaskColumn, MatDialogModule],
+  imports: [DragDropModule, FormsModule, TaskColumn, MatDialogModule, ScrollingModule],
 
   templateUrl: './task-list.html',
   styleUrl: './task-list.css',
@@ -25,6 +26,30 @@ export class TaskList {
     public taskService: TaskService,
     private dialog: MatDialog,
   ) {}
+
+  isDragging = false;
+
+  onDragStart() {
+    this.isDragging = true;
+  }
+
+  onDragEnd() {
+    this.isDragging = false;
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (!this.isDragging) return;
+    const container = document.querySelector('.board') as HTMLElement;
+    if (!container) return;
+    const rect = container.getBoundingClientRect();
+    const threshold = 50;
+    if (event.clientX < rect.left + threshold && container.scrollLeft > 0) {
+      container.scrollLeft -= 10;
+    } else if (event.clientX > rect.right - threshold && container.scrollLeft < container.scrollWidth - container.clientWidth) {
+      container.scrollLeft += 10;
+    }
+  }
 
   /**
    * Función para manejar el evento de drop en las columnas de tareas. Permite mover tareas dentro de la misma columna o transferirlas entre columnas diferentes utilizando las funciones moveItemInArray y transferArrayItem del CDK de Angular.

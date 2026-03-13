@@ -54,6 +54,10 @@ export class TaskService {
     }
   ];
 
+  todoTitle = 'To Do';
+  inProgressTitle = 'In Progress';
+  doneTitle = 'Done';
+
   addTask(title:string, description:string){
 
     const newTask: Task = {

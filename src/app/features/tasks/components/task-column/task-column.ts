@@ -19,4 +19,6 @@ export class TaskColumn {
   dropFn = input<Function>(() => {});
   deleteFn = input<Function>(() => {});
   updateFn = input.required<(task: Task) => void>();
+  onDragStart = input<() => void>(() => {});
+  onDragEnd = input<() => void>(() => {});
 }

@@ -2,37 +2,43 @@
   <button class="create-task-btn" (click)="openCreateTaskModal()">+ Nueva tarea</button>
 </div>
 
-<div class="board">
+<div class="board" cdkScrollable>
   <app-task-column
     listId="todoList"
-    title="To Do"
+    [title]="taskService.todoTitle"
     [tasks]="taskService.todo"
     [connectedTo]="['inProgressList', 'doneList']"
     [dropFn]="drop.bind(this)"
     [deleteFn]="deleteTask.bind(this)"
     [updateFn]="updateTask.bind(this)"
+    [onDragStart]="onDragStart.bind(this)"
+    [onDragEnd]="onDragEnd.bind(this)"
   >
   </app-task-column>
 
   <app-task-column
     listId="inProgressList"
-    title="In Progress"
+    [title]="taskService.inProgressTitle"
     [tasks]="taskService.inProgress"
     [connectedTo]="['todoList', 'doneList']"
     [dropFn]="drop.bind(this)"
     [deleteFn]="deleteTask.bind(this)"
     [updateFn]="updateTask.bind(this)"
+    [onDragStart]="onDragStart.bind(this)"
+    [onDragEnd]="onDragEnd.bind(this)"
   >
   </app-task-column>
 
   <app-task-column
     listId="doneList"
-    title="Done"
+    [title]="taskService.doneTitle"
     [tasks]="taskService.done"
     [connectedTo]="['todoList', 'inProgressList']"
     [dropFn]="drop.bind(this)"
     [deleteFn]="deleteTask.bind(this)"
     [updateFn]="updateTask.bind(this)"
+    [onDragStart]="onDragStart.bind(this)"
+    [onDragEnd]="onDragEnd.bind(this)"
   >
   </app-task-column>
 </div>
