@@ -44,3 +44,7 @@ Thumbs.db
 
 serviceAccountKey.json
 .firebase/
+
+# Local environment files with real secrets – use environment.example.ts as template
+src/environments/environment.ts
+src/environments/environment.prod.ts
