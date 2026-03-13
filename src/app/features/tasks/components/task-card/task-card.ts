@@ -2,6 +2,7 @@ import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskModal } from '../task-modal/task-modal';
+import { ConfirmModal } from '../confirm-modal/confirm-modal';
 import { Task } from '../../models/task';
 
 @Component({
@@ -22,7 +23,16 @@ export class TaskCard {
   deleteTask() {
     const task = this.task();
     if (task) {
-      this.delete.emit(task);
+      const dialogRef = this.dialog.open(ConfirmModal, {
+        width: '400px',
+        data: { message: `¿Estás seguro de que quieres eliminar la tarea "${task.title}"?` }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.delete.emit(task);
+        }
+      });
     }
   }
 
