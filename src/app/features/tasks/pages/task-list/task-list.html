@@ -1,3 +1,6 @@
+<button class="create-task-btn" (click)="openCreateTaskModal()">
++ Nueva tarea
+</button>
 <div class="board">
   <app-task-column listId="todoList" title="To Do" [tasks]="taskService.todo"
                    [connectedTo]="['inProgressList','doneList']"

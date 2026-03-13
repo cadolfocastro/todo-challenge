@@ -5,6 +5,8 @@ import { Task } from '../../models/task'
 import { TaskService } from '../../services/task.service'
 import { TaskForm } from "../../components/task-form/task-form";
 import { TaskColumn } from '../../components/task-column/task-column'
+import { CreateTaskModal } from '../../components/create-task-modal/create-task-modal'
+import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 
 
 @Component({
@@ -14,7 +16,8 @@ import { TaskColumn } from '../../components/task-column/task-column'
     DragDropModule,
     FormsModule,
     TaskForm,
-    TaskColumn
+    TaskColumn,
+    MatDialogModule,
 ],
 
  templateUrl:'./task-list.html',
@@ -24,7 +27,7 @@ import { TaskColumn } from '../../components/task-column/task-column'
 export class TaskList {
 
 
-  constructor(public taskService: TaskService){}
+constructor(public taskService: TaskService, private dialog: MatDialog){}
 
 
 
@@ -56,6 +59,7 @@ export class TaskList {
     this.taskService.deleteTask(task,list)
 
   }
+
   updateTask(updatedTask: Task){
 
   const lists = [
@@ -75,6 +79,43 @@ export class TaskList {
   })
 
 }
+
+
+ openCreateTaskModal(){
+
+  const dialogRef = this.dialog.open(CreateTaskModal,{
+    width:'420px'
+  })
+
+  dialogRef.afterClosed().subscribe(result => {
+
+    if(result){
+
+      const newTask: Task = {
+        id: Date.now(),
+        title: result.title,
+        description: result.description,
+        priority: result.priority,
+        createdAt: new Date()
+      }
+
+      if(result.status === 'todo'){
+        this.taskService.todo.push(newTask)
+      }
+
+      if(result.status === 'inProgress'){
+        this.taskService.inProgress.push(newTask)
+      }
+
+      if(result.status === 'done'){
+        this.taskService.done.push(newTask)
+      }
+
+    }
+
+  })
+
+ }
 
 
 }
