@@ -1,19 +1,28 @@
 /* BOARD - Layout general moderno tipo Kanban */
-.board {
-  display: flex;
-  gap: 24px;
-  padding: 32px;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  min-height: 100vh;
-  justify-content: center;
-  flex-wrap: wrap;
+.board{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:30px;
+}
+
+:host{
+
+  display:block;
+  min-height:100vh;
+  background:linear-gradient(
+    180deg,
+    #f6f7fb 0%,
+    #e9edf5 100%
+  );
+
 }
 
 .create-task-container {
   display: flex;
-  justify-content: center;
-  margin-top: 40px;
-  width: 100%;
+  justify-content:center;
+  margin:40px auto 30px auto;
+  width:100%;
 }
 
 /* Botón Nueva Tarea - Estilo profesional */
