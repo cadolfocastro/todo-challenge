@@ -1,26 +1,28 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../features/auth/services/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
   imports: [MatIconModule, MatButtonModule],
   templateUrl: './nav-bar.html',
-  styleUrl: './nav-bar.css'
+  styleUrl: './nav-bar.css',
 })
 export class NavBar {
+  private authService = inject(AuthService);
+
   appName = signal('Todo Challenge');
-  userName = signal('John Doe');
+
+  userEmail = computed(() => this.authService.currentUser()?.email ?? '');
 
   userInitials = computed(() => {
-    const name = this.userName();
-    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+    const email = this.userEmail();
+    return email ? email.charAt(0).toUpperCase() : '?';
   });
 
-  logout() {
-    // Dummy logout action
-    console.log('User logged out');
-    alert('Logged out successfully!');
+  logout(): void {
+    this.authService.logout();
   }
 }

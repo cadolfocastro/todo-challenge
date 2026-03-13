@@ -1,12 +1,20 @@
-<div class = 'create-task-container'>
+<div class='create-task-container'>
   <button class="create-task-btn" (click)="openCreateTaskModal()">+ Nueva tarea</button>
 </div>
+
+@if (taskService.loading()) {
+  <div class="loading-bar">Cargando tareas...</div>
+}
+
+@if (taskService.error()) {
+  <div class="error-bar">{{ taskService.error() }}</div>
+}
 
 <div class="board" cdkScrollable>
   <app-task-column
     listId="todoList"
     [title]="taskService.todoTitle"
-    [tasks]="taskService.todo"
+    [tasks]="taskService.todo()"
     [connectedTo]="['inProgressList', 'doneList']"
     [dropFn]="drop.bind(this)"
     [deleteFn]="deleteTask.bind(this)"
@@ -19,7 +27,7 @@
   <app-task-column
     listId="inProgressList"
     [title]="taskService.inProgressTitle"
-    [tasks]="taskService.inProgress"
+    [tasks]="taskService.inProgress()"
     [connectedTo]="['todoList', 'doneList']"
     [dropFn]="drop.bind(this)"
     [deleteFn]="deleteTask.bind(this)"
@@ -32,7 +40,7 @@
   <app-task-column
     listId="doneList"
     [title]="taskService.doneTitle"
-    [tasks]="taskService.done"
+    [tasks]="taskService.done()"
     [connectedTo]="['todoList', 'inProgressList']"
     [dropFn]="drop.bind(this)"
     [deleteFn]="deleteTask.bind(this)"

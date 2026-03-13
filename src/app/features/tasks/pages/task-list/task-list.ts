@@ -1,10 +1,9 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   CdkDragDrop,
   DragDropModule,
   moveItemInArray,
-  transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Task } from '../../models/task';
 import { TaskService } from '../../services/task.service';
@@ -12,16 +11,16 @@ import { TaskColumn } from '../../components/task-column/task-column';
 import { TaskModal } from '../../components/task-modal/task-modal';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [DragDropModule, FormsModule, TaskColumn, MatDialogModule, ScrollingModule],
-
+  imports: [DragDropModule, FormsModule, TaskColumn, MatDialogModule, ScrollingModule, CommonModule],
   templateUrl: './task-list.html',
   styleUrl: './task-list.css',
 })
-export class TaskList {
+export class TaskList implements OnInit {
   constructor(
     public taskService: TaskService,
     private dialog: MatDialog,
@@ -29,16 +28,20 @@ export class TaskList {
 
   isDragging = false;
 
-  onDragStart() {
+  ngOnInit(): void {
+    this.taskService.loadTasks();
+  }
+
+  onDragStart(): void {
     this.isDragging = true;
   }
 
-  onDragEnd() {
+  onDragEnd(): void {
     this.isDragging = false;
   }
 
   @HostListener('document:mousemove', ['$event'])
-  onMouseMove(event: MouseEvent) {
+  onMouseMove(event: MouseEvent): void {
     if (!this.isDragging) return;
     const container = document.querySelector('.board') as HTMLElement;
     if (!container) return;
@@ -47,71 +50,79 @@ export class TaskList {
     const scrollSpeed = 30;
     if (event.clientX < rect.left + threshold && container.scrollLeft > 0) {
       container.scrollLeft -= scrollSpeed;
-    } else if (event.clientX > rect.right - threshold && container.scrollLeft < container.scrollWidth - container.clientWidth) {
+    } else if (
+      event.clientX > rect.right - threshold &&
+      container.scrollLeft < container.scrollWidth - container.clientWidth
+    ) {
       container.scrollLeft += scrollSpeed;
     }
   }
 
   /**
-   * Función para manejar el evento de drop en las columnas de tareas. Permite mover tareas dentro de la misma columna o transferirlas entre columnas diferentes utilizando las funciones moveItemInArray y transferArrayItem del CDK de Angular.
+   * Handles CDK drag & drop events.
+   * Manually updates the signal arrays and persists the new status to the backend
+   * when a task is moved between columns.
    */
   drop(event: CdkDragDrop<Task[]>): void {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    const prevId = event.previousContainer.id;
+    const currId = event.container.id;
+
+    if (prevId === currId) {
+      const arr = [...this.getSignal(prevId)()];
+      moveItemInArray(arr, event.previousIndex, event.currentIndex);
+      this.getSignal(currId).set(arr);
     } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+      const prevArr = [...this.getSignal(prevId)()];
+      const currArr = [...this.getSignal(currId)()];
+      const [moved] = prevArr.splice(event.previousIndex, 1);
+      const newStatus = this.statusFor(currId);
+      const updatedTask: Task = { ...moved, status: newStatus };
+      currArr.splice(event.currentIndex, 0, updatedTask);
+      this.getSignal(prevId).set(prevArr);
+      this.getSignal(currId).set(currArr);
+      // Persist new status to backend
+      this.taskService.updateTaskStatus(moved.id, newStatus).subscribe();
     }
   }
 
-  deleteTask(task: Task, list: Task[]) {
-    this.taskService.deleteTask(task, list);
+  deleteTask(task: Task): void {
+    this.taskService.deleteTask(task.id).subscribe();
   }
 
-  updateTask(updatedTask: Task) {
-    const lists = [this.taskService.todo, this.taskService.inProgress, this.taskService.done];
-
-    lists.forEach((list) => {
-      const index = list.findIndex((t) => t.id === updatedTask.id);
-
-      if (index !== -1) {
-        list[index] = updatedTask;
-      }
-    });
+  updateTask(updatedTask: Task): void {
+    this.taskService.updateTask(updatedTask).subscribe();
   }
 
-  openCreateTaskModal() {
+  openCreateTaskModal(): void {
     const dialogRef = this.dialog.open(TaskModal, {
       width: '420px',
       data: { isEdit: false },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const newTask: Task = {
-          id: Date.now(),
-          title: result.title,
-          description: result.description,
-          priority: result.priority,
-          createdAt: new Date(),
-        };
-
-        if (result.status === 'todo') {
-          this.taskService.todo.push(newTask);
-        }
-
-        if (result.status === 'inProgress') {
-          this.taskService.inProgress.push(newTask);
-        }
-
-        if (result.status === 'done') {
-          this.taskService.done.push(newTask);
-        }
+        this.taskService
+          .createTask({
+            title: result.title,
+            description: result.description ?? '',
+            priority: result.priority ?? 'Media',
+            status: result.status ?? 'todo',
+          })
+          .subscribe();
       }
     });
   }
+
+  private getSignal(listId: string): WritableSignal<Task[]> {
+    if (listId === 'todoList') return this.taskService.todo;
+    if (listId === 'inProgressList') return this.taskService.inProgress;
+    return this.taskService.done;
+  }
+
+  private statusFor(listId: string): Task['status'] {
+    if (listId === 'todoList') return 'todo';
+    if (listId === 'inProgressList') return 'inProgress';
+    return 'done';
+  }
 }
+

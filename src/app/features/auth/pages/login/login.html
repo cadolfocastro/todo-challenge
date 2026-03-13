@@ -30,7 +30,13 @@
         />
       </div>
 
-      <button type="submit" class="login-btn">Sign In</button>
+      <button type="submit" class="login-btn" [disabled]="loading()">
+        {{ loading() ? 'Signing in...' : 'Sign In' }}
+      </button>
+
+      @if (error()) {
+        <p class="login-error">{{ error() }}</p>
+      }
     </form>
 
     <div class="footer">
