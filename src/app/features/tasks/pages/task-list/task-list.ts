@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms'
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
 import { Task } from '../../models/task'
 import { TaskService } from '../../services/task.service'
-import { TaskForm } from "../../components/task-form/task-form";
 import { TaskColumn } from '../../components/task-column/task-column'
 import { CreateTaskModal } from '../../components/create-task-modal/create-task-modal'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
@@ -15,7 +14,6 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog'
  imports: [
     DragDropModule,
     FormsModule,
-    TaskForm,
     TaskColumn,
     MatDialogModule,
 ],
