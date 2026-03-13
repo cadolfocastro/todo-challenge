@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { EditTaskModal } from '../edit-task-modal/edit-task-modal';
@@ -12,18 +12,24 @@ import { Task } from '../../models/task';
   styleUrl: './task-card.css',
 })
 export class TaskCard {
-  @Input() task?: Task;
-  @Output() delete = new EventEmitter<Task>();
-  @Output() update = new EventEmitter<Task>();
+  task = input<Task | undefined>();
+
+  delete = output<Task>();
+  update = output<Task>();
+
   constructor(private dialog: MatDialog) {}
 
   deleteTask() {
-    if (this.task) this.delete.emit(this.task);
+    const task = this.task();
+    if (task) {
+      this.delete.emit(task);
+    }
   }
+
   openEditModal() {
     const dialogRef = this.dialog.open(EditTaskModal, {
       width: '400px',
-      data: { ...this.task },
+      data: { ...(this.task() ?? {}) },
     });
 
     dialogRef.afterClosed().subscribe(result => {
