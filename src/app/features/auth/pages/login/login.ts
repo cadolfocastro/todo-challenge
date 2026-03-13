@@ -13,11 +13,12 @@ import { FormsModule } from '@angular/forms'
 export class Login{
 
   email: string=''
+  password: string=''
 
   constructor(private router:Router){}
 
   login(){
-    console.log("login con",this.email)
+    console.log("login con",this.email, this.password)
 
     this.router.navigate(['/tasks'])
   }
