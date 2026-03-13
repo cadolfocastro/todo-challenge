@@ -1,0 +1,14 @@
+<div class="column" cdkDropList
+     [id]="listId"
+     [cdkDropListData]="tasks"
+     [cdkDropListConnectedTo]="connectedTo"
+     (cdkDropListDropped)="dropFn($event)">
+
+  <h2>{{ title }} <span class="task-count">{{ tasks.length }}</span></h2>
+  <div *ngIf="tasks.length === 0" class="emptyList">Sin tareas</div>
+
+  <div *ngFor="let task of tasks" cdkDrag>
+    <app-task-card [task]="task" (delete)="deleteFn(task, tasks)"></app-task-card>
+  </div>
+
+</div>

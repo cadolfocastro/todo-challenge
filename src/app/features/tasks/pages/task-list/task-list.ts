@@ -1,0 +1,63 @@
+import { Component } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'
+import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
+import { Task } from '../../models/task'
+import { TaskService } from '../../services/task.service'
+import { TaskForm } from "../../components/task-form/task-form";
+import { TaskColumn } from '../../components/task-column/task-column'
+
+
+@Component({
+ selector:'app-task-list',
+ standalone: true,
+ imports: [
+    CommonModule,
+    DragDropModule,
+    FormsModule,
+    TaskForm,
+    TaskColumn,
+],
+
+ templateUrl:'./task-list.html',
+ styleUrl: './task-list.css'
+})
+
+export class TaskList {
+
+
+  constructor(public taskService: TaskService){}
+
+
+
+  drop(event: CdkDragDrop<Task[]>){
+
+    if(event.previousContainer === event.container){
+
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      )
+
+    }else{
+
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      )
+
+    }
+
+  }
+
+  deleteTask(task:Task, list:Task[]){
+
+    this.taskService.deleteTask(task,list)
+
+  }
+
+
+}

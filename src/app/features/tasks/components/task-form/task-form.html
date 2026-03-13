@@ -1,0 +1,10 @@
+<div class="task-form">
+  <input type="text" placeholder="Título de tarea..." [(ngModel)]="newTitle" />
+  <input type="text" placeholder="Descripción..." [(ngModel)]="newDescription" />
+  <select [(ngModel)]="newPriority">
+    <option value="Alta">Alta</option>
+    <option value="Media">Media</option>
+    <option value="Baja">Baja</option>
+  </select>
+  <button class="add-btn" (click)="addTask()">+ Agregar</button>
+</div>

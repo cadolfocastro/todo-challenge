@@ -1,0 +1,63 @@
+/* TARJETA DE TAREA */
+
+.task{
+  padding:12px;
+  background:white;
+  border-radius:8px;
+  cursor:move;
+  box-shadow:0 3px 6px rgba(0,0,0,0.15);
+  transition:transform 0.15s, box-shadow 0.15s;
+  position:relative;
+}
+
+.task:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* TITULO */
+
+.task h3{
+  margin:0 0 6px 0;
+  font-size:16px;
+  font-weight:600;
+  color:#1f2937;
+}
+
+/* DESCRIPCION */
+
+.task p{
+  margin:4px 0;
+  font-size:13px;
+  color:#4b5563;
+}
+
+/* FECHA */
+
+.task small{
+  display:block;
+  margin-top:6px;
+  font-size:11px;
+  color:#6b7280;
+}
+
+
+/* BOTON DELETE */
+
+.delete-btn{
+  position:absolute;
+  top:6px;
+  right:8px;
+  border:none;
+  background:#e53935;
+  color:white;
+  border-radius:50%;
+  width:22px;
+  height:22px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.delete-btn:hover{
+  background:#c62828;
+}
