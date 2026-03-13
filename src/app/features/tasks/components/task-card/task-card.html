@@ -1,8 +1,9 @@
 @if (task) {
   <div class="task">
     <button class="delete-btn" (click)="deleteTask()">×</button>
-    <h3 (click)='openEditModal()' class='task-title'>
+    <h3 (click)='openEditModal()' class='task-title editable-title' title="Haz click para editar">
       {{ task.title }}
+      <span class="edit-icon" aria-hidden="true">✏️</span>
     </h3>
     <p class="description">{{ task.description }}</p>
     <p class="priority priority-{{ task.priority.toLowerCase() }}">{{ task.priority }}</p>
