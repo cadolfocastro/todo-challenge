@@ -1,5 +1,4 @@
 import { Component } from '@angular/core'
-
 import { FormsModule } from '@angular/forms'
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
 import { Task } from '../../models/task'

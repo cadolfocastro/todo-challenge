@@ -1,0 +1,89 @@
+/* Título del modal */
+.modal-title{
+  font-size:20px;
+  font-weight:600;
+  color:#2c3e50;
+  letter-spacing:0.3px;
+}
+
+/* Contenedor del contenido */
+mat-dialog-content{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  padding-top:12px;
+  padding-right: 4px;
+  min-width:360px;
+}
+
+/* Grupo de campos */
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+/* Labels */
+label{
+  font-size:13px;
+  font-weight:600;
+  color:#5f6b7a;
+}
+
+/* Inputs */
+input,
+textarea,
+select{
+  width:100%;
+  box-sizing: border-box;
+  padding:10px 12px;
+  border-radius:8px;
+  border:1px solid #e2e6ea;
+  font-size:14px;
+  background:#fafbfc;
+  transition:all 0.2s ease;
+}
+
+/* Focus moderno */
+input:focus,
+textarea:focus,
+select:focus{
+  outline:none;
+  border-color:#3f51b5;
+  background:white;
+  box-shadow:0 0 0 3px rgba(63,81,181,0.15);
+}
+
+/* Textarea */
+textarea{
+  min-height:80px;
+  resize:none;
+}
+
+/* Acciones */
+mat-dialog-actions{
+  margin-top:10px;
+  padding-top:14px;
+  border-top:1px solid #eef1f4;
+}
+
+/* Botón cancelar */
+button[mat-button]{
+  font-weight:500;
+  color:#6c757d;
+}
+
+/* Botón guardar */
+button[mat-raised-button]{
+  font-weight:600;
+  letter-spacing:0.4px;
+  padding:8px 18px;
+  border-radius:8px;
+}
+
+/* Error */
+.error{
+  color:#e53935;
+  font-size:12px;
+  margin-top:-4px;
+}

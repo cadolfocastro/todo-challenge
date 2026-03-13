@@ -6,12 +6,12 @@
 
   <app-task-column listId="inProgressList" title="In Progress" [tasks]="taskService.inProgress"
                    [connectedTo]="['todoList','doneList']"
-                   [dropFn]="drop.bind(this)" [deleteFn]="deleteTask.bind(this)">
+                   [dropFn]="drop.bind(this)" [deleteFn]="deleteTask.bind(this)" [updateFn]="updateTask.bind(this)">
   </app-task-column>
 
   <app-task-column listId="doneList" title="Done" [tasks]="taskService.done"
                    [connectedTo]="['todoList','inProgressList']"
-                   [dropFn]="drop.bind(this)" [deleteFn]="deleteTask.bind(this)">
+                   [dropFn]="drop.bind(this)" [deleteFn]="deleteTask.bind(this)" [updateFn]="updateTask.bind(this)">
   </app-task-column>
 </div>
 
