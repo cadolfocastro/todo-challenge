@@ -125,6 +125,7 @@
 @media (max-width: 768px) {
   .column {
     min-height: 400px;
+    height: 100%;
   }
 }
 
