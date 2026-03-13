@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { EditTaskModal } from '../edit-task-modal/edit-task-modal';
+import { TaskModal } from '../task-modal/task-modal';
 import { Task } from '../../models/task';
 
 @Component({
@@ -27,9 +27,9 @@ export class TaskCard {
   }
 
   openEditModal() {
-    const dialogRef = this.dialog.open(EditTaskModal, {
+    const dialogRef = this.dialog.open(TaskModal, {
       width: '400px',
-      data: { ...(this.task() ?? {}) },
+      data: { isEdit: true, task: this.task() },
     });
 
     dialogRef.afterClosed().subscribe(result => {
