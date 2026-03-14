@@ -27,6 +27,7 @@
           mat-icon-button
           matSuffix
           type="button"
+          disabled
           (click)="showPassword.set(!showPassword())"
           [attr.aria-label]="showPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
         >
@@ -42,7 +43,7 @@
         class="login-btn"
         [disabled]="loading()"
       >
-        {{ loading() ? 'Signing in...' : 'Sign In' }}
+        {{ loading() ? 'Signing in...' : 'Acceder' }}
       </button>
 
       @if (error()) {

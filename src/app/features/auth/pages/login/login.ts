@@ -27,7 +27,7 @@ export class Login {
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required]
+    password: [{ value: '123456', disabled: true }, Validators.required]
   });
 
   login(): void {
@@ -39,7 +39,8 @@ export class Login {
     this.loading.set(true);
     this.error.set(null);
 
-    const { email, password } = this.form.value;
+    const { email } = this.form.value;
+    const password = this.form.get('password')!.value;
 
     this.authService.login(email!, password!).subscribe({
       next: () => {
