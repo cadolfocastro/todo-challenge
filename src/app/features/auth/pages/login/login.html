@@ -1,32 +1,47 @@
 <div class="login-wrapper">
   <div class="login-card">
     <div class="logo-section">
-      <h1>TaskFlow</h1>
-      <p>Welcome back! Please sign in to your account.</p>
+      <h1>Tablero de Tareas</h1>
+      <p>Inicia sesión para gestionar tus tareas</p>
     </div>
 
     <form class="login-form" [formGroup]="form" (ngSubmit)="login()">
-      <div class="form-group">
-        <label for="email">Email address</label>
-        <input
-          type="email"
-          id="email"
-          formControlName="email"
-          placeholder="Enter your email"
-        />
-      </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="correo@ejemplo.com" />
+        <mat-icon matPrefix>mail_outline</mat-icon>
+        <mat-error>Ingresa un email válido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contraseña</mat-label>
         <input
-          type="password"
-          id="password"
+          matInput
+          [type]="showPassword() ? 'text' : 'password'"
           formControlName="password"
-          placeholder="Enter your password"
+          placeholder="Tu contraseña"
         />
-      </div>
+        <mat-icon matPrefix>lock_outline</mat-icon>
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="showPassword.set(!showPassword())"
+          [attr.aria-label]="showPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+        >
+          <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error>La contraseña es requerida</mat-error>
+      </mat-form-field>
 
-      <button type="submit" class="login-btn" [disabled]="loading()">
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        class="login-btn"
+        [disabled]="loading()"
+      >
         {{ loading() ? 'Signing in...' : 'Sign In' }}
       </button>
 

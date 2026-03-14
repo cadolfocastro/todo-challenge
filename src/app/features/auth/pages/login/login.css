@@ -1,5 +1,4 @@
-
-/* FONDO ELEGANTE */
+/* FONDO ELEGANTE — sin cambios */
 .login-wrapper {
   height: 100%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -57,72 +56,31 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 8px;
 }
 
-/* GRUPOS DE FORMULARIO */
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  margin-bottom: 8px;
-  letter-spacing: 0.025em;
-}
-
-/* INPUTS MODERNOS */
-.form-group input {
-  padding: 12px 16px;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 16px;
-  color: #1f2937;
-  background: #ffffff;
-  transition: all 0.2s ease;
-  outline: none;
-}
-
-.form-group input::placeholder {
-  color: #9ca3af;
-}
-
-.form-group input:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  transform: translateY(-1px);
-}
-
-.form-group input:hover {
-  border-color: #d1d5db;
+/* Mat form field ocupa todo el ancho */
+.full-width {
+  width: 100%;
 }
 
 /* BOTÓN PRINCIPAL */
 .login-btn {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  padding: 14px 24px;
+  width: 100%;
+  padding: 8px 0;
   font-size: 16px;
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-top: 8px;
   letter-spacing: 0.025em;
+  margin-top: 8px;
+  border-radius: 8px !important;
 }
 
-.login-btn:hover {
-  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
-}
-
-.login-btn:active {
-  transform: translateY(0);
+/* ERROR DE SERVIDOR */
+.login-error {
+  color: #ef4444;
+  font-size: 14px;
+  text-align: center;
+  margin: 4px 0 0;
 }
 
 /* FOOTER */
@@ -151,7 +109,7 @@
   text-decoration: underline;
 }
 
-/* RESPONSIVE DESIGN */
+/* RESPONSIVE */
 @media (max-width: 480px) {
   .login-card {
     padding: 32px 24px;
@@ -160,13 +118,5 @@
 
   .logo-section h1 {
     font-size: 28px;
-  }
-
-  .form-group input {
-    padding: 14px 16px;
-  }
-
-  .login-btn {
-    padding: 16px 24px;
   }
 }
