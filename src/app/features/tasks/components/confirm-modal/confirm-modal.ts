@@ -7,6 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 export interface ConfirmData {
   title: string;
   message: string;
+  confirmLabel?: string;
+  confirmColor?: 'warn' | 'primary' | 'accent';
 }
 
 @Component({

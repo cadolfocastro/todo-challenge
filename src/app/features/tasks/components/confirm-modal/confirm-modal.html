@@ -14,7 +14,7 @@
 
   <div class="actions">
     <button mat-stroked-button (click)="cancel()">Cancelar</button>
-    <button mat-raised-button color="warn" (click)="confirm()">Eliminar</button>
+    <button mat-raised-button [color]="data.confirmColor ?? 'warn'" (click)="confirm()">{{ data.confirmLabel ?? 'Eliminar' }}</button>
   </div>
 
 </div>
