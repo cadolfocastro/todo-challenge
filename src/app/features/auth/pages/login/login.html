@@ -14,34 +14,14 @@
         <mat-error>Ingresa un email válido</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Contraseña</mat-label>
-        <input
-          matInput
-          [type]="showPassword() ? 'text' : 'password'"
-          formControlName="password"
-          placeholder="Tu contraseña"
-        />
-        <mat-icon matPrefix>lock_outline</mat-icon>
-        <button
-          mat-icon-button
-          matSuffix
-          type="button"
-          disabled
-          (click)="showPassword.set(!showPassword())"
-          [attr.aria-label]="showPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
-        >
-          <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
-        </button>
-        <mat-error>La contraseña es requerida</mat-error>
-      </mat-form-field>
+
 
       <button
         mat-flat-button
         color="primary"
         type="submit"
         class="login-btn"
-        [disabled]="loading()"
+        [disabled]="loading() || form.invalid"
       >
         {{ loading() ? 'Signing in...' : 'Acceder' }}
       </button>
@@ -51,8 +31,5 @@
       }
     </form>
 
-    <div class="footer">
-      <p>Don't have an account? <a href="#">Sign up</a></p>
-    </div>
   </div>
 </div>

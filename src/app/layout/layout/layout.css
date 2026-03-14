@@ -1,4 +1,10 @@
 .main-content {
   background: linear-gradient(180deg, #f6f7fb 0%, #e9edf5 100%);
-  height: calc(100vh - 72px - 97px);
+  height: calc(100vh - 60px - 78px);
+}
+
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }

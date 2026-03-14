@@ -22,12 +22,11 @@ export class Login {
 
   loading = signal(false);
   error = signal<string | null>(null);
-  showPassword = signal(false);
 
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: [{ value: '123456', disabled: true }, Validators.required]
+    password: ['123456', Validators.required]
   });
 
   login(): void {
