@@ -3,7 +3,7 @@
   [ngClass]="{
     'todo-header': title() === 'To Do',
     'progress-header': title() === 'In Progress',
-    'done-header': title() === 'Done'
+    'done-header': title() === 'Done',
   }"
   cdkDropList
   [id]="listId()"
@@ -22,7 +22,11 @@
   </div>
 
   @if (tasks().length === 0) {
-    <div class="emptyList">Sin tareas</div>
+    <div class="empty-state">
+      <div class="empty-icon">📋</div>
+      <p class="empty-title">Sin tareas</p>
+      <p class="empty-subtitle">Arrastra una tarea aquí</p>
+    </div>
   }
 
   @for (task of tasks(); track task.id) {
