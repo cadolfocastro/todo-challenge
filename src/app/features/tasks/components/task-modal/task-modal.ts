@@ -1,8 +1,11 @@
-import { Component, inject, signal, effect } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { Task } from '../../models/task';
 
 interface DialogData {
@@ -17,7 +20,10 @@ interface DialogData {
     CommonModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   templateUrl: './task-modal.html',
   styleUrl: './task-modal.css'
@@ -25,40 +31,30 @@ interface DialogData {
 export class TaskModal {
   private fb = inject(FormBuilder);
   private dialogRef = inject(MatDialogRef<TaskModal>);
-  public data = inject<DialogData>(MAT_DIALOG_DATA);
+  readonly data = inject<DialogData>(MAT_DIALOG_DATA);
 
-  isEdit = signal(this.data.isEdit);
-  task = signal(this.data.task);
-  form = signal<FormGroup>(this.fb.group({}));
+  readonly isEdit = this.data.isEdit;
 
-  constructor() {
-    effect(() => {
-      if (this.isEdit()) {
-        this.form.set(this.fb.group({
-          title: [this.task()?.title || '', Validators.required],
-          description: [this.task()?.description || ''],
-          priority: [this.task()?.priority || 'Media']
-        }));
-      } else {
-        this.form.set(this.fb.group({
-          title: ['', Validators.required],
-          description: [''],
-          priority: ['Media'],
-          status: ['todo']
-        }));
-      }
-    });
-  }
+  form: FormGroup = this.isEdit
+    ? this.fb.group({
+        title:       [this.data.task?.title       ?? '', Validators.required],
+        description: [this.data.task?.description ?? ''],
+        priority:    [this.data.task?.priority    ?? 'Media'],
+      })
+    : this.fb.group({
+        title:       ['', Validators.required],
+        description: [''],
+        priority:    ['Media'],
+        status:      ['todo'],
+      });
 
-  save() {
-    if (this.form().valid) {
-      const formValue = this.form().value;
-      if (this.isEdit() && this.task()) {
-        const updatedTask: Task = { ...this.task()!, ...formValue };
-        this.dialogRef.close(updatedTask);
-      } else {
-        this.dialogRef.close(formValue);
-      }
+  save(): void {
+    if (this.form.invalid) return;
+
+    if (this.isEdit && this.data.task) {
+      this.dialogRef.close({ ...this.data.task, ...this.form.value });
+    } else {
+      this.dialogRef.close(this.form.value);
     }
   }
 }
