@@ -1,16 +1,9 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, switchMap, tap, map } from 'rxjs';
+import { Observable, tap, map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { User } from '../models/user';
-
-interface FirebaseSignInResponse {
-  idToken: string;
-  email: string;
-  localId: string;
-  expiresIn: string;
-}
 
 interface BackendAuthResponse {
   uid: string;
@@ -39,30 +32,28 @@ export class AuthService {
     }
   }
 
-  login(email: string, password: string): Observable<void> {
-    // Step 1: authenticate against Firebase Auth REST API (no Firebase SDK needed)
-    const firebaseUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseApiKey}`;
+  private saveSession(res: BackendAuthResponse): void {
+    const user: User = { email: res.email };
+    this.token.set(res.token);
+    this.currentUser.set(user);
+    localStorage.setItem(this.TOKEN_KEY, res.token);
+    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+  }
 
+  login(email: string, password: string): Observable<void> {
     return this.http
-      .post<FirebaseSignInResponse>(firebaseUrl, {
-        email,
-        password,
-        returnSecureToken: true,
-      })
+      .post<BackendAuthResponse>(`${environment.apiUrl}/auth/login`, { email, password })
       .pipe(
-        // Step 2: verify token on our backend and get user info
-        switchMap(firebaseRes =>
-          this.http.post<BackendAuthResponse>(`${environment.apiUrl}/auth/login`, {
-            idToken: firebaseRes.idToken,
-          }),
-        ),
-        tap(res => {
-          const user: User = { email: res.email };
-          this.token.set(res.token);
-          this.currentUser.set(user);
-          localStorage.setItem(this.TOKEN_KEY, res.token);
-          localStorage.setItem(this.USER_KEY, JSON.stringify(user));
-        }),
+        tap(res => this.saveSession(res)),
+        map(() => void 0 as void),
+      );
+  }
+
+  register(email: string, password: string): Observable<void> {
+    return this.http
+      .post<BackendAuthResponse>(`${environment.apiUrl}/auth/register`, { email, password })
+      .pipe(
+        tap(res => this.saveSession(res)),
         map(() => void 0 as void),
       );
   }
