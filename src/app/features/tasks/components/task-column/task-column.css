@@ -30,9 +30,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 10px;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #e5e7eb;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 4px;
 }
 
 .column-title {
@@ -83,7 +83,9 @@
   border: 2px dashed #d1d5db;
   border-radius: 12px;
   margin-top: 8px;
-  transition: border-color 0.2s ease, background 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
 }
 
 .empty-state:hover {
@@ -133,20 +135,18 @@
   transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.cdk-drop-list-receiving{
+.cdk-drop-list-receiving {
+  background: rgba(130, 199, 255, 0.05);
 
-  background:rgba(130, 199, 255, 0.05);
+  border: 1px dashed rgba(33, 150, 243, 0.4);
 
-  border:1px dashed rgba(33,150,243,0.4);
-
-  transition:all 0.2s ease;
-
+  transition: all 0.2s ease;
 }
 /* DRAG OVER STATE */
 .cdk-drop-list-dragging {
   background: #eef2ff;
   border-color: #3f51b5;
-  transition:0.2s;
+  transition: 0.2s;
 }
 
 /* Responsive */
@@ -170,4 +170,84 @@
 /* Done */
 .done-header {
   border-top: 4px solid #4caf50;
+}
+
+/* GRUPOS DE COLOR POR COLUMNA */
+.header-todo {
+  background: #eff6ff;
+}
+
+.header-progress {
+  background: #fffbeb;
+}
+
+.header-done {
+  background: #f0fdf4;
+}
+
+/* TÍTULO CON PUNTO DE COLOR */
+.column-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.column-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.header-todo .column-dot {
+  background: #3b82f6;
+}
+.header-progress .column-dot {
+  background: #f59e0b;
+}
+.header-done .column-dot {
+  background: #22c55e;
+}
+
+.column-title {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.header-todo .column-title {
+  color: #1d4ed8;
+}
+.header-progress .column-title {
+  color: #b45309;
+}
+.header-done .column-title {
+  color: #15803d;
+}
+
+/* CONTADOR — neutro pero bien definido */
+.task-count {
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  padding: 0 7px;
+}
+
+.header-todo .task-count {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.header-progress .task-count {
+  background: #fde68a;
+  color: #92400e;
+}
+.header-done .task-count {
+  background: #bbf7d0;
+  color: #166534;
 }

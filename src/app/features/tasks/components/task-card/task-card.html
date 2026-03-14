@@ -1,12 +1,25 @@
 @if (task()) {
-  <div class="task">
-    <button class="delete-btn" (click)="deleteTask()">×</button>
-    <h3 (click)='openEditModal()' class='task-title editable-title' title="Haz click para editar">
-      {{ task()?.title }}
-      <span class="edit-icon" aria-hidden="true">✏️</span>
-    </h3>
-    <p class="description">{{ task()?.description }}</p>
-    <p class="priority priority-{{ task()?.priority?.toLowerCase()}}">{{ task()?.priority }}</p>
-    <small class="date">Creada: {{ task()?.createdAt | date: 'short' }}</small>
+  <div class="task priority-border-{{ task()?.priority?.toLowerCase() }}">
+    <button class="delete-btn" (click)="deleteTask()" aria-label="Eliminar tarea">
+      <span aria-hidden="true">×</span>
+    </button>
+
+    <div class="task-body">
+      <h3 (click)="openEditModal()" class="task-title editable-title" title="Haz click para editar">
+        {{ task()?.title }}
+        <span class="edit-icon" aria-hidden="true">✏️</span>
+      </h3>
+
+      @if (task()?.description) {
+        <p class="description">{{ task()?.description }}</p>
+      }
+    </div>
+
+    <div class="task-footer">
+      <span class="priority-badge priority-{{ task()?.priority?.toLowerCase() }}">
+        {{ task()?.priority }}
+      </span>
+      <small class="date">{{ task()?.createdAt | date: 'dd MMM y, HH:mm' }}</small>
+    </div>
   </div>
 }

@@ -11,14 +11,18 @@
   [cdkDropListConnectedTo]="connectedTo()"
   (cdkDropListDropped)="dropFn()($event)"
 >
-  <div class="column-header">
-    <span class="column-title">
-      {{ title() }}
-    </span>
-
-    <span class="task-count">
-      {{ tasks().length }}
-    </span>
+   <div class="column-header"
+    [ngClass]="{
+      'header-todo':     title() === 'To Do',
+      'header-progress': title() === 'In Progress',
+      'header-done':     title() === 'Done'
+    }"
+  >
+    <div class="column-title-group">
+      <span class="column-dot"></span>
+      <span class="column-title">{{ title() }}</span>
+    </div>
+    <span class="task-count">{{ tasks().length }}</span>
   </div>
 
   @if (tasks().length === 0) {
