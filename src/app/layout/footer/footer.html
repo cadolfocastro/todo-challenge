@@ -1,6 +1,10 @@
 <footer class="footer">
   <div class="footer-content">
-    <p>&copy; {{ currentYear() }} Todo Challenge. Built with ❤️ using Angular 20.</p>
-    <p>Version {{ appVersion() }}</p>
+    <div class="footer-brand">
+      <span class="footer-logo">Tablero de Tareas</span>
+      <span class="footer-separator">·</span>
+      <span>{{ appVersion() }}</span>
+    </div>
+    <p class="footer-copy">&copy; {{ currentYear() }} Todo Challenge. Built with ❤️ using Angular.</p>
   </div>
 </footer>
