@@ -1,12 +1,4 @@
 .main-content {
-  height: 100%;
-  padding: 2rem 1.5rem;
-  width: 100vw;
   background: linear-gradient(180deg, #f6f7fb 0%, #e9edf5 100%);
-}
-
-.container {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  height: 100dvh;
+  height: calc(100vh - 72px - 97px);
 }
