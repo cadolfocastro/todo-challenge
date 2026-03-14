@@ -10,5 +10,4 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000',
-  firebaseApiKey: 'TU_FIREBASE_WEB_API_KEY_AQUI',
 };
